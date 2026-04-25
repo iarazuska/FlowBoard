@@ -29,20 +29,6 @@
 
 ---
 
-## 📸 Screenshots
-
-<div align="center">
-
-### ☀️ Light Mode
-<!-- ![FlowBoard Light](screenshots/light.png) -->
-
-### 🌙 Dark Mode
-<!-- ![FlowBoard Dark](screenshots/dark.png) -->
-
-</div>
-
----
-
 ## 🚀 Getting Started
 
 ### Prerequisites
