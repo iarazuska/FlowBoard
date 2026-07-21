@@ -1,6 +1,6 @@
 <div align="center">
 
-# 🗂️ FlowBoard
+# FlowBoard
 
 **A modern Kanban board desktop application built with JavaFX**
 
@@ -13,23 +13,23 @@
 
 ---
 
-## ✨ Features
+## Features
 
 | Feature | Description |
 |---|---|
-| 🃏 **Card Management** | Create, edit and delete cards with title, description, color, priority and due date |
-| 🖱️ **Drag & Drop** | Move cards between columns with smooth drag and drop |
-| 🔍 **Real-time Search** | Filter cards instantly as you type |
-| 🌙 **Dark / Light Theme** | Full dark and light mode support |
-| 📊 **Sort Cards** | Sort by priority or due date with one click |
-| 📦 **Export to JSON** | Save your board data to a JSON file |
-| ⚙️ **Settings Panel** | Sliding settings panel with font size, theme and sorting options |
-| 🏷️ **Card Counter** | See how many cards are in each column |
-| ✏️ **Editable Title** | Click the board name to rename it |
+| **Card Management** | Create, edit and delete cards with title, description, color, priority and due date |
+| **Drag & Drop** | Move cards between columns with smooth drag and drop |
+| **Real-time Search** | Filter cards instantly as you type |
+| **Dark UI** | Modern dark-only theme with a black, purple and gray palette |
+| **Sort Cards** | Sort by priority or due date with one click |
+| **Export to JSON** | Save your board data to a JSON file |
+| **Settings Panel** | Sliding settings panel with font size and sorting options |
+| **Card Counter** | See how many cards are in each column |
+| **Editable Title** | Click the board name to rename it |
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -51,7 +51,18 @@ mvn clean javafx:run
 
 ---
 
-## 🛠️ Tech Stack
+## UI
+
+FlowBoard uses a single dark theme defined in a dedicated stylesheet
+(`flowboard.css`) instead of inline styles: black backgrounds, a purple
+accent for actions and highlights, and gray for secondary text and
+borders. Cards and columns have soft shadows, and interactive elements
+(cards, buttons, the add-column button) react with hover states defined
+directly in CSS.
+
+---
+
+## Tech Stack
 
 <div align="center">
 
