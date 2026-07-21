@@ -24,19 +24,10 @@ public class App extends Application {
         SettingsPanel settingsPanel = new SettingsPanel();
 
         Label titleLabel = new Label("FlowBoard");
-        titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: #212121; -fx-cursor: hand;");
+        titleLabel.getStyleClass().add("app-title");
 
         TextField titleEdit = new TextField("FlowBoard");
-        titleEdit.setStyle(
-                "-fx-font-size: 18px;" +
-                        "-fx-font-weight: bold;" +
-                        "-fx-text-fill: #212121;" +
-                        "-fx-background-color: transparent;" +
-                        "-fx-border-color: #1976d2;" +
-                        "-fx-border-radius: 4;" +
-                        "-fx-border-width: 0 0 2 0;" +
-                        "-fx-padding: 0 4 0 4;"
-        );
+        titleEdit.getStyleClass().add("title-edit");
         titleEdit.setPrefWidth(160);
         titleEdit.setVisible(false);
         titleEdit.setManaged(false);
@@ -73,15 +64,8 @@ public class App extends Application {
 
         TextField searchField = new TextField();
         searchField.setPromptText("Buscar tarjetas...");
-        searchField.setPrefWidth(200);
-        searchField.setStyle(
-                "-fx-background-radius: 6;" +
-                        "-fx-border-radius: 6;" +
-                        "-fx-border-color: #e0e0e0;" +
-                        "-fx-border-width: 1;" +
-                        "-fx-padding: 5 10 5 10;" +
-                        "-fx-font-size: 12px;"
-        );
+        searchField.setPrefWidth(220);
+        searchField.getStyleClass().add("search-field");
         searchField.textProperty().addListener((obs, oldVal, newVal) ->
                 controller.filterCards(newVal.trim().toLowerCase())
         );
@@ -90,91 +74,18 @@ public class App extends Application {
         HBox.setHgrow(spacer, Priority.ALWAYS);
 
         Button exportBtn = new Button("Exportar JSON");
-        exportBtn.setStyle(
-                "-fx-background-color: #1976d2;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 12px;" +
-                        "-fx-cursor: hand;" +
-                        "-fx-background-radius: 6;" +
-                        "-fx-padding: 6 14 6 14;"
-        );
-        exportBtn.setOnMouseEntered(e -> exportBtn.setStyle(
-                "-fx-background-color: #1565c0;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 12px;" +
-                        "-fx-cursor: hand;" +
-                        "-fx-background-radius: 6;" +
-                        "-fx-padding: 6 14 6 14;"
-        ));
-        exportBtn.setOnMouseExited(e -> exportBtn.setStyle(
-                "-fx-background-color: #1976d2;" +
-                        "-fx-text-fill: white;" +
-                        "-fx-font-size: 12px;" +
-                        "-fx-cursor: hand;" +
-                        "-fx-background-radius: 6;" +
-                        "-fx-padding: 6 14 6 14;"
-        ));
+        exportBtn.getStyleClass().addAll("btn", "btn-primary");
         exportBtn.setOnAction(e -> JsonExporter.export(controller.getBoardModel(), stage));
 
         Button settingsBtn = new Button("Ajustes");
-        settingsBtn.setStyle(
-                "-fx-background-color: #f5f5f5;" +
-                        "-fx-text-fill: #424242;" +
-                        "-fx-font-size: 12px;" +
-                        "-fx-cursor: hand;" +
-                        "-fx-background-radius: 6;" +
-                        "-fx-padding: 6 14 6 14;" +
-                        "-fx-border-color: #e0e0e0;" +
-                        "-fx-border-width: 1;" +
-                        "-fx-border-radius: 6;"
-        );
+        settingsBtn.getStyleClass().addAll("btn", "btn-secondary");
         settingsBtn.setOnAction(e -> settingsPanel.toggle());
 
         HBox topBar = new HBox(12);
-        topBar.setPadding(new Insets(12, 20, 12, 20));
-        topBar.setStyle("-fx-background-color: white; -fx-border-color: #e0e0e0; -fx-border-width: 0 0 1 0;");
+        topBar.getStyleClass().add("top-bar");
+        topBar.setPadding(new Insets(14, 20, 14, 20));
         topBar.setAlignment(Pos.CENTER_LEFT);
         topBar.getChildren().addAll(titleLabel, titleEdit, spacer, searchField, exportBtn, settingsBtn);
-
-        settingsPanel.setOnDarkMode(dark -> {
-            controller.setDarkMode(dark, board);
-            settingsPanel.applyTheme(dark);
-
-            String topBg = dark ? "#13131f" : "white";
-            String topBorder = dark ? "#2d2d44" : "#e0e0e0";
-            String titleColor = dark ? "#e0e0e0" : "#212121";
-            String searchBorder = dark ? "#2d2d44" : "#e0e0e0";
-            String searchBg = dark ? "#1e1e2e" : "white";
-            String searchText = dark ? "#e0e0e0" : "#212121";
-
-            topBar.setStyle("-fx-background-color: " + topBg + "; -fx-border-color: " + topBorder + "; -fx-border-width: 0 0 1 0;");
-            titleLabel.setStyle("-fx-font-size: 18px; -fx-font-weight: bold; -fx-text-fill: " + titleColor + "; -fx-cursor: hand;");
-            searchField.setStyle(
-                    "-fx-background-radius: 6;" +
-                            "-fx-border-radius: 6;" +
-                            "-fx-border-color: " + searchBorder + ";" +
-                            "-fx-border-width: 1;" +
-                            "-fx-padding: 5 10 5 10;" +
-                            "-fx-font-size: 12px;" +
-                            "-fx-background-color: " + searchBg + ";" +
-                            "-fx-text-fill: " + searchText + ";"
-            );
-            settingsBtn.setStyle(
-                    "-fx-background-color: " + (dark ? "#2d2d44" : "#f5f5f5") + ";" +
-                            "-fx-text-fill: " + (dark ? "#e0e0e0" : "#424242") + ";" +
-                            "-fx-font-size: 12px;" +
-                            "-fx-cursor: hand;" +
-                            "-fx-background-radius: 6;" +
-                            "-fx-padding: 6 14 6 14;" +
-                            "-fx-border-color: " + (dark ? "#3d3d5c" : "#e0e0e0") + ";" +
-                            "-fx-border-width: 1;" +
-                            "-fx-border-radius: 6;"
-            );
-        });
-
-        settingsPanel.setOnFontSize(size -> controller.setFontSize(size));
-        settingsPanel.setOnSortByPriority(() -> controller.sortAllByPriority());
-        settingsPanel.setOnSortByDate(() -> controller.sortAllByDate());
 
         StackPane centerStack = new StackPane();
         centerStack.getChildren().add(board);
@@ -182,10 +93,22 @@ public class App extends Application {
         centerStack.getChildren().add(settingsPanel);
 
         BorderPane root = new BorderPane();
+        root.getStyleClass().add("app-root");
         root.setTop(topBar);
         root.setCenter(centerStack);
 
+        settingsPanel.setOnFontSize(size -> {
+            root.getStyleClass().removeAll("font-small", "font-large");
+            if (size.equals("small") || size.equals("large")) {
+                root.getStyleClass().add("font-" + size);
+            }
+        });
+
+        settingsPanel.setOnSortByPriority(() -> controller.sortAllByPriority());
+        settingsPanel.setOnSortByDate(() -> controller.sortAllByDate());
+
         Scene scene = new Scene(root, 1100, 680);
+        scene.getStylesheets().add(getClass().getResource("flowboard.css").toExternalForm());
         stage.setTitle("FlowBoard");
         stage.setScene(scene);
         stage.show();

@@ -14,7 +14,6 @@ public class MainController {
 
     private BoardModel boardModel;
     private HBox columnsContainer;
-    private boolean darkMode = false;
 
     public MainController() {
         this.boardModel = new BoardModel();
@@ -24,7 +23,7 @@ public class MainController {
         columnsContainer = new HBox();
         columnsContainer.setSpacing(16);
         columnsContainer.setPadding(new Insets(20));
-        columnsContainer.setStyle("-fx-background-color: #ebecf0;");
+        columnsContainer.getStyleClass().add("board-container");
 
         for (Column column : boardModel.getColumns()) {
             addColumnView(column);
@@ -34,30 +33,13 @@ public class MainController {
 
         ScrollPane scrollPane = new ScrollPane(columnsContainer);
         scrollPane.setFitToHeight(true);
-        scrollPane.setStyle("-fx-background: #ebecf0; -fx-background-color: #ebecf0;");
+        scrollPane.getStyleClass().add("board-scroll");
         return scrollPane;
     }
 
     private Button buildAddColumnButton() {
         Button addColumnBtn = new Button("+ Nueva columna");
-        String lightStyle =
-                "-fx-background-color: #ffffff55;" +
-                        "-fx-text-fill: #424242;" +
-                        "-fx-font-size: 13px;" +
-                        "-fx-cursor: hand;" +
-                        "-fx-background-radius: 8;" +
-                        "-fx-padding: 10 16 10 16;";
-        String darkStyle =
-                "-fx-background-color: #16213e;" +
-                        "-fx-text-fill: #e8e8f0;" +
-                        "-fx-font-size: 13px;" +
-                        "-fx-cursor: hand;" +
-                        "-fx-background-radius: 8;" +
-                        "-fx-border-color: #0f3460;" +
-                        "-fx-border-width: 1;" +
-                        "-fx-border-radius: 8;" +
-                        "-fx-padding: 10 16 10 16;";
-        addColumnBtn.setStyle(darkMode ? darkStyle : lightStyle);
+        addColumnBtn.getStyleClass().add("add-column-btn");
         addColumnBtn.setOnAction(e -> showAddColumnDialog());
         return addColumnBtn;
     }
@@ -88,25 +70,6 @@ public class MainController {
             addColumnView(column);
         }
         columnsContainer.getChildren().add(buildAddColumnButton());
-
-        if (darkMode) {
-            String columnBg = "#16213e";
-            String columnBorder = "#0f3460";
-            String titleColor = "#e8e8f0";
-            String countBg = "#0f3460";
-            String countText = "#a0a0c0";
-            String cardBg = "#1e2a4a";
-            String cardBorder = "#2d3d6b";
-            String cardText = "#e8e8f0";
-            String cardDesc = "#8888aa";
-            String addBtn = "#8888aa";
-
-            for (javafx.scene.Node node : columnsContainer.getChildren()) {
-                if (node instanceof ColumnView columnView) {
-                    columnView.applyTheme(columnBg, columnBorder, titleColor, countBg, countText, cardBg, cardBorder, cardText, cardDesc, addBtn);
-                }
-            }
-        }
     }
 
     private void showAddCardDialog(Column column) {
@@ -124,7 +87,7 @@ public class MainController {
         descField.setPromptText("Descripción");
         descField.setPrefRowCount(3);
 
-        ColorPicker colorPicker = new ColorPicker(javafx.scene.paint.Color.web("#1976d2"));
+        ColorPicker colorPicker = new ColorPicker(javafx.scene.paint.Color.web("#9333ea"));
 
         ChoiceBox<Card.Priority> priorityBox = new ChoiceBox<>();
         priorityBox.getItems().addAll(Card.Priority.values());
@@ -253,40 +216,6 @@ public class MainController {
         for (javafx.scene.Node node : columnsContainer.getChildren()) {
             if (node instanceof ColumnView columnView) {
                 columnView.filterCards(query);
-            }
-        }
-    }
-
-    public void setDarkMode(boolean dark, javafx.scene.control.ScrollPane board) {
-        this.darkMode = dark;
-        String bg = dark ? "#1a1a2e" : "#ebecf0";
-        String columnBg = dark ? "#16213e" : "#f4f5f7";
-        String columnBorder = dark ? "#0f3460" : "#e0e0e0";
-        String titleColor = dark ? "#e8e8f0" : "#424242";
-        String countBg = dark ? "#0f3460" : "#e0e0e0";
-        String countText = dark ? "#a0a0c0" : "#616161";
-        String cardBg = dark ? "#1e2a4a" : "white";
-        String cardBorder = dark ? "#2d3d6b" : "#e0e0e0";
-        String cardText = dark ? "#e8e8f0" : "#212121";
-        String cardDesc = dark ? "#8888aa" : "#757575";
-        String addBtn = dark ? "#8888aa" : "#757575";
-
-        columnsContainer.setStyle("-fx-background-color: " + bg + ";");
-        board.setStyle("-fx-background: " + bg + "; -fx-background-color: " + bg + ";");
-
-        for (javafx.scene.Node node : columnsContainer.getChildren()) {
-            if (node instanceof ColumnView columnView) {
-                columnView.applyTheme(columnBg, columnBorder, titleColor, countBg, countText, cardBg, cardBorder, cardText, cardDesc, addBtn);
-            }
-        }
-    }
-
-    public void setFontSize(String size) {
-        int titleSize = size.equals("small") ? 12 : size.equals("large") ? 16 : 14;
-        int descSize = size.equals("small") ? 10 : size.equals("large") ? 13 : 11;
-        for (javafx.scene.Node node : columnsContainer.getChildren()) {
-            if (node instanceof ColumnView columnView) {
-                columnView.setFontSize(titleSize, descSize);
             }
         }
     }

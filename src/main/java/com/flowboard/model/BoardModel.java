@@ -13,9 +13,9 @@ public class BoardModel {
     }
 
     private void initDefaultColumns() {
-        columns.add(new Column("To Do"));
-        columns.add(new Column("In Progress"));
-        columns.add(new Column("Done"));
+        columns.add(new Column("Por hacer"));
+        columns.add(new Column("En progreso"));
+        columns.add(new Column("Hecho"));
     }
 
     public void addColumn(String name) {
